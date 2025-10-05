@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './ViewItem.css'; // 👈 Import the CSS
+import './ViewItem.css'; 
 import ItemModal from "../components/itemModal";
 import dummyItems from '../data/dummyData';
 
@@ -19,22 +19,22 @@ function ViewItems() {
   }, []);
 
   return (
-    <div className="view-items-container">
-      <video autoPlay loop muted className="background-video">
+    <div className="view">
+      <video autoPlay loop muted className="bgvideo">
         <source src="/background2.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <h2 className="items-heading">All Items</h2>
+      <h2 className="heading">All Items</h2>
 
-      <div className="item-grid">
+      <div className="itembox">
         {items.length === 0 ? (
           <p>No items added yet.</p>
         ) : (
           items.map((item, index) => (
             <div
               key={index}
-              className="item-card"
+              className="card"
               onClick={() => setSelectedItem(item)}
             >
               <img src={item.coverImage} alt={item.name} />

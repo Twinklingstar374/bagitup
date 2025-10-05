@@ -7,14 +7,19 @@ import 'slick-carousel/slick/slick-theme.css';
 function ItemModal({ item, onClose }) {
   if (!item) return null;
 
-  const allImages = [item.coverImage, ...(item.additionalImages || [])];
+  // Merge cover + additional safely, remove falsy/duplicate values
+  const allImages = Array.from(
+    new Set([item.coverImage, ...(item.additionalImages || [])].filter(Boolean))
+  );
 
+  // Disable infinite loop when there's only one image
   const sliderSettings = {
     dots: true,
-    infinite: true,
+    infinite: allImages.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: allImages.length > 1, // hide arrows if single image
   };
 
   return (
@@ -37,12 +42,11 @@ function ItemModal({ item, onClose }) {
         </div>
 
         <a
-  href={`mailto:agarwallabulbul@gmail.com?subject=Enquiry about ${item.name}`}
-  className="enquire"
->
-  Enquire
-</a>
-
+          href={`mailto:agarwallabulbul@gmail.com?subject=Enquiry about ${item.name}`}
+          className="enquire"
+        >
+          Enquire
+        </a>
       </div>
     </div>
   );
